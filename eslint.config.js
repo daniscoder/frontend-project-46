@@ -8,7 +8,7 @@ import importPlugin from 'eslint-plugin-import';
 
 // mimic CommonJS variables -- not needed if using CommonJS
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.__dirname(__filename);
+const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: pluginJs.configs.recommended,
@@ -19,6 +19,7 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node,
+        ...globals.jest,
       },
       parserOptions: {
         // Eslint doesn't supply ecmaVersion in `parser.js` `context.parserOptions`
