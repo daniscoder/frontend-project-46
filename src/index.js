@@ -16,10 +16,7 @@ const readTextFile = (filePath) => {
 };
 
 export default (...filePaths) => {
-  const parseFiles = filePaths.map((filePath) => {
-    const textFile = readTextFile(filePath);
-    const extension = getFilePathExtension(filePath);
-    return parseData(textFile, extension);
-  });
+  const parseFiles = filePaths
+    .map((filePath) => parseData(readTextFile(filePath), getFilePathExtension(filePath)));
   return compare(...parseFiles);
 };
