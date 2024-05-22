@@ -21,5 +21,5 @@ export default (...filePaths) => {
     const extension = getFilePathExtension(filePath);
     return parseData(textFile, extension);
   });
-  return parseFiles;
+  return compare(...parseFiles);
 };
