@@ -10,10 +10,7 @@ const getFilePathExtension = (filePath) => {
 
 const buildFullPath = (filePath) => path.resolve(process.cwd(), filePath);
 
-const readTextFile = (filePath) => {
-  const file = fs.readFileSync(buildFullPath(filePath));
-  return file.toString();
-};
+const readTextFile = (filePath) => fs.readFileSync(buildFullPath(filePath)).toString();
 
 export default (...filePaths) => {
   const parseFiles = filePaths
