@@ -1,17 +1,17 @@
 import path from 'path';
 import fs from 'fs';
-import parseData from './tools/parser.js';
-import compare from './tools/compare.js'
+import parseData from './parsers.js';
+import compare from './compare.js';
 
 const getFilePathExtension = (filePath) => {
   const extname = path.extname(filePath);
   return extname !== '' ? extname.split('.')[1] : '';
 };
 
-const resolvedFilePath = (filePath) => path.resolve(process.cwd(), filePath);
+const buildFullPath = (filePath) => path.resolve(process.cwd(), filePath);
 
 const readTextFile = (filePath) => {
-  const file = fs.readFileSync(resolvedFilePath(filePath));
+  const file = fs.readFileSync(buildFullPath(filePath));
   return file.toString();
 };
 
