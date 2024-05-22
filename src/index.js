@@ -1,22 +1,25 @@
 import path from 'path';
 import fs from 'fs';
 import parseData from './tools/parser.js';
-
-const fixturesDir = '__fixtures__';
+import compare from './tools/compare.js'
 
 const getFilePathExtension = (filePath) => {
   const extname = path.extname(filePath);
   return extname !== '' ? extname.split('.')[1] : '';
 };
 
-const getFilePath = (fileName) => path.resolve(process.cwd(), fileName);
+const resolvedFilePath = (filePath) => path.resolve(process.cwd(), filePath);
 
-const readTextFile = (fileName) => {
-  const file = fs.readFileSync(getFilePath(fileName));
+const readTextFile = (filePath) => {
+  const file = fs.readFileSync(resolvedFilePath(filePath));
   return file.toString();
 };
 
-export default (fileName1, fileName2) => {
-  const q = parseData(readTextFile(fileName1), getFilePathExtension(fileName1));
-  return q;
+export default (...filePaths) => {
+  const parseFiles = filePaths.map((filePath) => {
+    const textFile = readTextFile(filePath);
+    const extension = getFilePathExtension(filePath);
+    return parseData(textFile, extension);
+  });
+  return parseFiles;
 };
