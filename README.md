@@ -1,4 +1,5 @@
 [![Actions Status](https://github.com/daniscoder/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/daniscoder/frontend-project-46/actions)
+[![Node CI](https://github.com/daniscoder/frontend-project-46/actions/workflows/node-check.yml/badge.svg)](https://github.com/daniscoder/frontend-project-46/actions/workflows/node-check.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/411f54f05a3db25a271b/maintainability)](https://codeclimate.com/github/daniscoder/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/411f54f05a3db25a271b/test_coverage)](https://codeclimate.com/github/daniscoder/frontend-project-46/test_coverage)
 <h1>Вычислитель отличий </h1>
@@ -20,3 +21,6 @@
 - gendiff -v - посмотреть версию утилиты
 - diff -f - установить формат. Всего доступны 3 формата: stylish (установлен по умолчанию), plain и json
 ------------ 
+
+Различия между плоскими файлами (JSON)
+[![asciicast](https://asciinema.org/a/LdrJCuo9a5n6pc0WqQMjMdCdr.svg)](https://asciinema.org/a/LdrJCuo9a5n6pc0WqQMjMdCdr)
