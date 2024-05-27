@@ -1,9 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 
-const fixturesPath = '__fixtures__';
-
-const getFilePathExtension = (filePath) => {
+const getPathExtension = (filePath) => {
   const extname = path.extname(filePath);
   return extname !== '' ? extname.split('.').at(-1) : '';
 };
@@ -16,7 +14,7 @@ const buildFullPath = (filePath) => {
   if (fs.existsSync(resolvedFilePath)) {
     return resolvedFilePath;
   }
-  const resolvedFixtureFilePath = path.resolve(process.cwd(), fixturesPath, filePath);
+  const resolvedFixtureFilePath = path.resolve(process.cwd(), '__fixtures__', filePath);
   if (fs.existsSync(resolvedFixtureFilePath)) {
     return resolvedFixtureFilePath;
   }
@@ -25,4 +23,4 @@ const buildFullPath = (filePath) => {
 
 const readTextFile = (filePath) => fs.readFileSync(buildFullPath(filePath)).toString();
 
-export { getFilePathExtension, readTextFile };
+export { getPathExtension, buildFullPath, readTextFile };
