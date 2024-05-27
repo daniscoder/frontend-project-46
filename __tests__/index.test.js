@@ -5,6 +5,12 @@ import { readTextFile } from '../src/helpers.js';
 
 const result = readTextFile('result.txt').trim();
 
+test('test toThrow', () => {
+  expect(() => {
+    throw new Error('blabla');
+  }).toThrow(Error);
+});
+
 test('parsers error', () => {
   expect(parsers({}, 'txt')).toThrow(Error);
 });
