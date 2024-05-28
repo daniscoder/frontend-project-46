@@ -5,6 +5,7 @@ import fs from 'fs';
 import { getPathExtension, buildFullPath, readTextFile } from '../src/helpers.js';
 import parsers from '../src/parsers.js';
 import genDiff from '../src/index.js';
+import formatters from '../src/formatters/index.js';
 
 test('check extension', () => {
   expect(getPathExtension('.json')).toBe('');
@@ -33,6 +34,10 @@ test('check parsers', () => {
   expect(parsers('test: test', 'yaml')).toEqual({ test: 'test' });
   expect(parsers('test:\n  test1: test', 'yml')).toEqual({ test: { test1: 'test' } });
   expect(() => parsers({}, 'txt')).toThrow(Error);
+});
+
+test('check formatters error', () => {
+  expect(() => formatters({}, 'test')).toThrow(Error);
 });
 
 test('check json plain', () => {

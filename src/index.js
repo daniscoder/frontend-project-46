@@ -1,5 +1,5 @@
 import { readTextFile, getPathExtension, outFormat } from './helpers.js';
-import formater from './formaters/index.js';
+import formater from './formatters/index.js';
 import parsers from './parsers.js';
 import makeDiff from './makeDiff.js';
 
