@@ -1,15 +1,16 @@
 import { nodeState } from '../helpers.js';
 
 const baseWith = 4;
+const specSymbol = ' ';
 
-const getSpace = (depth) => ' '.repeat(depth * baseWith);
-const makeDepthKey = (depth, key, symbol = ' ') => `${getSpace(depth)}  ${symbol} ${key}:`;
+const getDepthSymbols = (depth) => specSymbol.repeat(depth * baseWith);
+const makeDepthKey = (depth, key, sign = ' ') => `${getDepthSymbols(depth)}  ${sign} ${key}:`;
 
 const dataFormater = (data, depth) => {
   if (data instanceof Object) {
     const result = Object.entries(data)
       .map(([key, value]) => `${makeDepthKey(depth + 1, key)} ${dataFormater(value, depth + 1)}`);
-    return `{\n${result.join('\n')}\n${getSpace(depth + 1)}}`;
+    return `{\n${result.join('\n')}\n${getDepthSymbols(depth + 1)}}`;
   }
   return `${data}`;
 };
@@ -22,7 +23,7 @@ const stylish = (tree) => {
       }
       return `${makeDepthKey(depth, key, state)} ${dataFormater(data, depth)}`;
     });
-    return `{\n${result.join('\n')}\n${getSpace(depth)}}`;
+    return `{\n${result.join('\n')}\n${getDepthSymbols(depth)}}`;
   };
   return iter(tree, 0);
 };
