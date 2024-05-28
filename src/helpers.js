@@ -1,6 +1,17 @@
 import path from 'path';
 import fs from 'fs';
 
+const nodeState = {
+  nested: 'nested',
+  same: ' ',
+  removed: '-',
+  added: '+',
+};
+
+const outFormat = {
+  stylish: 'stylish',
+};
+
 const getPathExtension = (filePath) => {
   const extname = path.extname(filePath);
   return extname !== '' ? extname.split('.').at(-1) : '';
@@ -23,4 +34,6 @@ const buildFullPath = (filePath) => {
 
 const readTextFile = (filePath) => fs.readFileSync(buildFullPath(filePath)).toString();
 
-export { getPathExtension, buildFullPath, readTextFile };
+export {
+  nodeState, outFormat, getPathExtension, buildFullPath, readTextFile,
+};
