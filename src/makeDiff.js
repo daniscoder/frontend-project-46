@@ -11,7 +11,7 @@ const makeDiff = (obj1, obj2) => {
       return acc;
     }
     if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && obj1[key] === obj2[key]) {
-      acc.push(getNode(nodeState.same, key, obj1[key]));
+      acc.push(getNode(nodeState.unsigned, key, obj1[key]));
       return acc;
     }
     if (Object.hasOwn(obj1, key)) {

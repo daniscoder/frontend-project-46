@@ -24,3 +24,7 @@
 
 Различия между плоскими файлами (JSON)
 [![asciicast](https://asciinema.org/a/LdrJCuo9a5n6pc0WqQMjMdCdr.svg)](https://asciinema.org/a/LdrJCuo9a5n6pc0WqQMjMdCdr)
+
+
+
+[![asciicast](https://asciinema.org/a/wk0fFWyz7Uq0O91HpFGSbSOLO.svg)](https://asciinema.org/a/wk0fFWyz7Uq0O91HpFGSbSOLO)

@@ -3,13 +3,14 @@ import fs from 'fs';
 
 const nodeState = {
   nested: 'nested',
-  same: ' ',
+  unsigned: ' ',
   removed: '-',
   added: '+',
 };
 
-const outFormat = {
+const formatNames = {
   stylish: 'stylish',
+  plain: 'plain',
 };
 
 const getPathExtension = (filePath) => {
@@ -35,5 +36,5 @@ const buildFullPath = (filePath) => {
 const readTextFile = (filePath) => fs.readFileSync(buildFullPath(filePath)).toString();
 
 export {
-  nodeState, outFormat, getPathExtension, buildFullPath, readTextFile,
+  nodeState, formatNames, getPathExtension, buildFullPath, readTextFile,
 };
