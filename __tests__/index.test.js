@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals';
 import path from 'path';
 
-import { getPathExtension, buildFullPath, readTextFile } from '../src/helpers.js';
+import { getPathExtension, buildFullPath, readFile } from '../src/helpers.js';
 import genDiff from '../src/index.js';
 
 test('check extension', () => {
@@ -21,7 +21,7 @@ test('check build full path', () => {
 });
 
 test('check genDiff', () => {
-  const result = readTextFile('resultStylish.txt').trim();
+  const result = readFile('resultStylish.txt').trim();
   expect(genDiff('file1.json', 'file2.json')).toEqual(result);
   expect(genDiff('file1.yaml', 'file2.yaml')).toEqual(result);
   expect(genDiff('file1.yml', 'file2.yml')).toEqual(result);

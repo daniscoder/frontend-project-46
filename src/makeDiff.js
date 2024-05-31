@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import { nodeState } from './helpers.js';
-
-const getNode = (state, key, data) => ({ state, key, data });
+import { nodeState, getNode } from './helpers.js';
 
 const makeDiff = (obj1, obj2) => {
   const sortedKeys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
@@ -11,7 +9,7 @@ const makeDiff = (obj1, obj2) => {
       return acc;
     }
     if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && obj1[key] === obj2[key]) {
-      acc.push(getNode(nodeState.unsigned, key, obj1[key]));
+      acc.push(getNode(nodeState.updated, key, obj1[key]));
       return acc;
     }
     if (Object.hasOwn(obj1, key)) {

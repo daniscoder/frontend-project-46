@@ -1,13 +1,13 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
-import { formatNames } from '../helpers.js';
+import { formats } from '../helpers.js';
 
 export default (obj, formatName) => {
   switch (formatName) {
-    case formatNames.stylish: {
+    case formats.stylish: {
       return stylish(obj);
     }
-    case formatNames.plain: {
+    case formats.plain: {
       return plain(obj);
     }
     default:
