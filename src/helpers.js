@@ -1,18 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 
-const nodeState = {
-  nested: 'nested',
-  updated: ' ',
-  removed: '-',
-  added: '+',
-};
-
-const formats = {
-  stylish: 'stylish',
-  plain: 'plain',
-};
-
 const getPathExtension = (filePath) => {
   const extname = path.extname(filePath);
   return extname !== '' ? extname.split('.').at(-1) : '';
@@ -35,8 +23,24 @@ const buildFullPath = (filePath) => {
 
 const readFile = (filePath) => fs.readFileSync(buildFullPath(filePath)).toString();
 
+const statuses = {
+  nested: 'nested',
+  updated: 'updated',
+  removed: 'removed',
+  added: 'added',
+  object: 'object',
+};
+
+const chars = [' ', ' ', ' ', '-', '+', ' '];
+const statusChars = Object.fromEntries(Object.keys(statuses).map((key, i) => [key, chars[i]]));
+
+const formats = {
+  stylish: 'stylish',
+  plain: 'plain',
+};
+
 const getNode = (state, key, data) => ({ state, key, data });
 
 export {
-  nodeState, formats, getPathExtension, buildFullPath, readFile, getNode,
+  statuses, statusChars, formats, getPathExtension, buildFullPath, readFile, getNode,
 };

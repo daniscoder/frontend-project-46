@@ -1,25 +1,24 @@
 import _ from 'lodash';
-import { nodeState, getNode } from './helpers.js';
+import { statuses, getNode } from './helpers.js';
 
 const makeDiff = (obj1, obj2) => {
   const sortedKeys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
-  return sortedKeys.reduce((acc, key) => {
+  return sortedKeys.map((key) => {
     if (obj1[key] instanceof Object && obj2[key] instanceof Object) {
-      acc.push(getNode(nodeState.nested, key, makeDiff(obj1[key], obj2[key])));
-      return acc;
+      return getNode(statuses.nested, key, makeDiff(obj1[key], obj2[key]));
     }
-    if (Object.hasOwn(obj1, key) && Object.hasOwn(obj2, key) && obj1[key] === obj2[key]) {
-      acc.push(getNode(nodeState.updated, key, obj1[key]));
-      return acc;
+    if (!Object.hasOwn(obj1, key)) {
+      return getNode(statuses.added, key, obj2[key]);
     }
-    if (Object.hasOwn(obj1, key)) {
-      acc.push(getNode(nodeState.removed, key, obj1[key]));
+    if (!Object.hasOwn(obj2, key)) {
+      return getNode(statuses.removed, key, obj1[key]);
     }
-    if (Object.hasOwn(obj2, key)) {
-      acc.push(getNode(nodeState.added, key, obj2[key]));
+    const node = getNode(statuses.updated, key, obj1[key]);
+    if (obj1[key] !== obj2[key]) {
+      node.updValue = obj2[key];
     }
-    return acc;
-  }, []);
+    return node;
+  });
 };
 
 export default makeDiff;
