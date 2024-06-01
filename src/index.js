@@ -1,14 +1,10 @@
-import { readFile, getPathExtension, formats } from './helpers.js';
+import { readFile, getPathExtension } from './helpers.js';
 import formater from './formatters/index.js';
 import parser from './parsers.js';
-import makeDiff from './makeDiff.js';
+import buildAST from './buildAST.js';
 
-export default (filePath1, filePath2, formatName = formats.stylish) => {
-  const diffTree = makeDiff(...[filePath1, filePath2]
-    .map((filePath) => {
-      const file = readFile(filePath);
-      const extension = getPathExtension(filePath);
-      return parser(file, extension);
-    }));
+export default (filePath1, filePath2, formatName) => {
+  const diffTree = buildAST(...[filePath1, filePath2]
+    .map((filePath) => parser(readFile(filePath), getPathExtension(filePath))));
   return formater(diffTree, formatName);
 };

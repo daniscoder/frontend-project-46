@@ -1,16 +1,14 @@
-import stylish from './stylish.js';
-import plain from './plain.js';
-import { formats } from '../helpers.js';
+import formaterStylish from './stylish.js';
+import formaterPlain from './plain.js';
+
+const formatters = {
+  stylish: formaterStylish,
+  plain: formaterPlain,
+};
 
 export default (obj, formatName) => {
-  switch (formatName) {
-    case formats.stylish: {
-      return stylish(obj);
-    }
-    case formats.plain: {
-      return plain(obj);
-    }
-    default:
-      throw new Error('Unknown formater');
+  if (formatName in formatters) {
+    return formatters[formatName](obj, formatName);
   }
+  throw new Error('Unknown format');
 };

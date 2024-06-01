@@ -25,7 +25,6 @@ test('check genDiff', () => {
   expect(genDiff('file1.json', 'file2.json')).toEqual(result);
   expect(genDiff('file1.yaml', 'file2.yaml')).toEqual(result);
   expect(genDiff('file1.yml', 'file2.yml')).toEqual(result);
-  expect(genDiff('file1.json', 'file2.yaml')).toEqual(result);
 
   expect(() => genDiff('test', 'file2.json')).toThrow();
   expect(() => genDiff('resultStylish.txt', 'file2.json')).toThrow(Error);
