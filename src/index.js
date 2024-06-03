@@ -3,7 +3,7 @@ import formater from './formatters/index.js';
 import parser from './parsers.js';
 import buildAST from './buildAST.js';
 
-export default (filePath1, filePath2, formatName) => {
+export default (filePath1, filePath2, formatName = 'stylish') => {
   const diffTree = buildAST(...[filePath1, filePath2]
     .map((filePath) => parser(readFile(filePath), getPathExtension(filePath))));
   return formater(diffTree, formatName);

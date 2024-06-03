@@ -1,32 +1,40 @@
-import { states, stateChars } from '../helpers.js';
+import { states } from '../helpers.js';
 
 const baseWith = 4;
-
 const tabChar = ' ';
+
+const chars = ['-', '+', tabChar];
+const stateChars = Object.fromEntries(Object.keys(states)
+  .slice(0, chars.length)
+  .map((key, i) => [key, chars[i]]));
+
 const getIndent = (depth) => tabChar.repeat(depth * baseWith);
-const getKeyIndent = (depth, key, sign) => `${getIndent(depth)}${tabChar.repeat(2)}${sign} ${key}: `;
+const getKeyIndent = (depth, key, sign = tabChar) => `${getIndent(depth)}${tabChar.repeat(2)}${sign} ${key}: `;
+const join = (arr, depth) => `{\n${arr.join('\n')}\n${getIndent(depth)}}`;
+
+const stringify = (data, depth) => {
+  if (data instanceof Object) {
+    const result = Object.entries(data)
+      .flatMap(([key, value]) => `${getKeyIndent(depth, key)}${stringify(value, depth + 1)}`);
+    return join(result, depth);
+  }
+  return `${data}`;
+};
 
 const stylish = (tree) => {
-  // console.log(JSON.stringify(tree, null, 2));
   const iter = (node, depth) => {
-    const result = node.map((obj) => {
-      if (obj.state === states.nested) {
-        return `${getKeyIndent(depth, obj.key, stateChars[obj.state])}${iter(obj.children, depth + 1)}`;
+    const result = node.map(({ state, key, value, updValue }) => {
+      if (state === states.nested) {
+        return `${getKeyIndent(depth, key)}${iter(value, depth + 1)}`;
       }
-      if (obj.value instanceof Object) {
-        const arr = Object.entries(obj.value).flatMap(([key, value]) => ({
-          state: states.object, key, value,
-        }));
-        return `${getKeyIndent(depth, obj.key, stateChars[obj.state])}${iter(arr, depth + 1)}`;
+      if (state === states.changed) {
+        return [[states.removed, value], [states.added, updValue]]
+          .map(([curState, curValue]) => (`${getKeyIndent(depth, key, stateChars[curState])}${stringify(curValue, depth + 1)}`))
+          .join('\n');
       }
-      if (obj.state === states.changed) {
-        const removed = `${getKeyIndent(depth, obj.key, stateChars[states.removed])}${obj.value1}`;
-        const added = `${getKeyIndent(depth, obj.key, stateChars[states.added])}${obj.value2}`;
-        return `${removed}\n${added}`;
-      }
-      return `${getKeyIndent(depth, obj.key, stateChars[obj.state])}${obj.value}`;
+      return `${getKeyIndent(depth, key, stateChars[state])}${stringify(value, depth + 1)}`;
     });
-    return `{\n${result.join('\n')}\n${getIndent(depth)}}`;
+    return join(result, depth);
   };
   return iter(tree, 0);
 };

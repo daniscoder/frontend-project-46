@@ -24,17 +24,13 @@ const buildFullPath = (filePath) => {
 const readFile = (filePath) => fs.readFileSync(buildFullPath(filePath)).toString();
 
 const states = {
-  nested: 'nested',
-  unchanged: 'unchanged',
-  changed: 'changed',
   removed: 'removed',
   added: 'added',
-  object: 'object',
+  unchanged: 'unchanged',
+  changed: 'changed',
+  nested: 'nested',
 };
 
-const chars = [' ', ' ', ' ', '-', '+', ' '];
-const stateChars = Object.fromEntries(Object.keys(states).map((key, i) => [key, chars[i]]));
-
 export {
-  states, stateChars, getPathExtension, buildFullPath, readFile,
+  states, getPathExtension, buildFullPath, readFile,
 };
