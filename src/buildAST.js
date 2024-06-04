@@ -18,7 +18,7 @@ const buildAST = (obj1, obj2) => {
     if (obj1[key] === obj2[key]) {
       return getNode(states.unchanged, key, obj1[key]);
     }
-    return getNode(states.changed, key, [obj1[key], obj2[key]]);
+    return getNode(states.updated, key, [obj1[key], obj2[key]]);
   });
 };
 

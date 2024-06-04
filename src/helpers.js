@@ -27,7 +27,7 @@ const states = {
   removed: 'removed',
   added: 'added',
   unchanged: 'unchanged',
-  changed: 'changed',
+  updated: 'updated',
   nested: 'nested',
 };
 

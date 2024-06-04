@@ -26,7 +26,7 @@ const stylish = (tree) => {
       if (state === states.nested) {
         return `${getKeyIndent(depth, key)}${iter(value, depth + 1)}`;
       }
-      if (state === states.changed) {
+      if (state === states.updated) {
         return value
           .map((val, index) => `${getKeyIndent(depth, key, chars[index])}${stringify(val, depth + 1)}`)
           .join('\n');
