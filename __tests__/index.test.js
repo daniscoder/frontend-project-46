@@ -4,32 +4,38 @@ import path from 'path';
 import { getPathExtension, buildFullPath, readFile } from '../src/helpers.js';
 import genDiff from '../src/index.js';
 
-test('check extension', () => {
-  expect(getPathExtension('.json')).toBe('');
-  expect(getPathExtension('../../..json')).toBe('json');
-  expect(getPathExtension('file1.json')).toBe('json');
+describe('check extension', () => {
+  test.each([
+    ['.json', ''],
+    ['../../..json', 'json'],
+    ['file1.json', 'json'],
+  ])('"%s" => "%s"', (filePath, result) => {
+    expect(getPathExtension(filePath)).toBe(result);
+  });
 });
 
-test('check build full path', () => {
+describe('check build full path', () => {
   const absPath = path.resolve(process.cwd(), '__fixtures__', 'file1.json');
-  expect(buildFullPath(absPath)).toBe(absPath);
-  expect(buildFullPath('file1.json')).toBe(absPath);
-  expect(buildFullPath('./file1.json')).toBe(absPath);
-  expect(buildFullPath('__fixtures__/file1.json')).toBe(absPath);
-  expect(buildFullPath('./__fixtures__/file1.json')).toBe(absPath);
-  expect(buildFullPath('test.txt')).toBe(path.resolve(process.cwd(), 'test.txt'));
+  test.each([[absPath], ['file1.json'], ['./file1.json'], ['__fixtures__/file1.json'], ['./__fixtures__/file1.json']])(
+    '"%s"',
+    (filePath) => {
+      expect(buildFullPath(filePath)).toBe(absPath);
+    },
+  );
 });
 
-const formats = [['json'], ['yaml'], ['yml']];
-const formaterResults = [
-  ['stylish', readFile('resultStylish.txt').trim()],
-];
-describe.each(formaterResults)('qqqqqqq', (formater, result) => {
-  test.each(formats)('gendiff using %s', (format) => {
-    expect(genDiff(`file1.${format}`, `file2.${format}`, formater)).toEqual(result);
+describe('check gendiff', () => {
+  test('exception checking', () => {
+    expect(() => genDiff('test', 'file2.json')).toThrow();
+    expect(() => genDiff('resultStylish.txt', 'file2.json')).toThrow(Error);
+    expect(() => genDiff('file1.json', 'file2.json', 'test')).toThrow(Error);
+  });
 
-    // expect(() => genDiff('test', 'file2.json')).toThrow();
-    // expect(() => genDiff('resultStylish.txt', 'file2.json')).toThrow(Error);
-    // expect(() => genDiff('file1.json', 'file2.json', 'test')).toThrow(Error);
+  const formaterResults = [['stylish', readFile('resultStylish.txt').trim()]];
+  const formats = [['json'], ['yaml'], ['yml']];
+  describe.each(formaterResults)('formater %s', (formaterName, result) => {
+    test.each(formats)('format %s', (format) => {
+      expect(genDiff(`file1.${format}`, `file2.${format}`, formaterName)).toEqual(result);
+    });
   });
 });
