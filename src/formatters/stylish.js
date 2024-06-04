@@ -4,8 +4,7 @@ const baseWith = 4;
 const tabChar = ' ';
 
 const chars = ['-', '+', tabChar];
-const stateChars = Object.fromEntries(Object.keys(states)
-  .slice(0, chars.length)
+const stateChars = Object.fromEntries(Object.keys(states).slice(0, chars.length)
   .map((key, i) => [key, chars[i]]));
 
 const getIndent = (depth) => tabChar.repeat(depth * baseWith);
@@ -23,13 +22,13 @@ const stringify = (data, depth) => {
 
 const stylish = (tree) => {
   const iter = (node, depth) => {
-    const result = node.map(({ state, key, value, updValue }) => {
+    const result = node.map(({ state, key, value }) => {
       if (state === states.nested) {
         return `${getKeyIndent(depth, key)}${iter(value, depth + 1)}`;
       }
       if (state === states.changed) {
-        return [[states.removed, value], [states.added, updValue]]
-          .map(([curState, curValue]) => (`${getKeyIndent(depth, key, stateChars[curState])}${stringify(curValue, depth + 1)}`))
+        return value
+          .map((val, index) => `${getKeyIndent(depth, key, chars[index])}${stringify(val, depth + 1)}`)
           .join('\n');
       }
       return `${getKeyIndent(depth, key, stateChars[state])}${stringify(value, depth + 1)}`;

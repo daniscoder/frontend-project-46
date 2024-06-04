@@ -20,12 +20,16 @@ test('check build full path', () => {
   expect(buildFullPath('test.txt')).toBe(path.resolve(process.cwd(), 'test.txt'));
 });
 
-const formatList = ['json', 'yaml', 'yml'];
-const result = readFile('resultStylish.txt').trim();
-test.each(formatList)('gendiff as', (format) => {
-  expect(genDiff(`file1.${format}`, `file2.${format}`)).toEqual(result);
+const formats = [['json'], ['yaml'], ['yml']];
+const formaterResults = [
+  ['stylish', readFile('resultStylish.txt').trim()],
+];
+describe.each(formaterResults)('qqqqqqq', (formater, result) => {
+  test.each(formats)('gendiff using %s', (format) => {
+    expect(genDiff(`file1.${format}`, `file2.${format}`, formater)).toEqual(result);
 
-  // expect(() => genDiff('test', 'file2.json')).toThrow();
-  // expect(() => genDiff('resultStylish.txt', 'file2.json')).toThrow(Error);
-  // expect(() => genDiff('file1.json', 'file2.json', 'test')).toThrow(Error);
+    // expect(() => genDiff('test', 'file2.json')).toThrow();
+    // expect(() => genDiff('resultStylish.txt', 'file2.json')).toThrow(Error);
+    // expect(() => genDiff('file1.json', 'file2.json', 'test')).toThrow(Error);
+  });
 });
