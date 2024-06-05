@@ -4,8 +4,11 @@ const baseWith = 4;
 const tabChar = ' ';
 
 const chars = ['-', '+', tabChar];
-const stateChars = Object.fromEntries(Object.keys(states).slice(0, chars.length)
-  .map((key, i) => [key, chars[i]]));
+const stateChars = Object.fromEntries(
+  Object.keys(states)
+    .slice(0, chars.length)
+    .map((key, i) => [key, chars[i]]),
+);
 
 const getIndent = (depth) => tabChar.repeat(depth * baseWith);
 const getKeyIndent = (depth, key, sign = tabChar) => `${getIndent(depth)}${tabChar.repeat(2)}${sign} ${key}: `;
@@ -13,8 +16,9 @@ const join = (arr, depth) => `{\n${arr.join('\n')}\n${getIndent(depth)}}`;
 
 const stringify = (data, depth) => {
   if (data instanceof Object) {
-    const result = Object.entries(data)
-      .flatMap(([key, value]) => `${getKeyIndent(depth, key)}${stringify(value, depth + 1)}`);
+    const result = Object.entries(data).flatMap(
+      ([key, value]) => `${getKeyIndent(depth, key)}${stringify(value, depth + 1)}`,
+    );
     return join(result, depth);
   }
   return data;

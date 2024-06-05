@@ -5,23 +5,28 @@ import { getPathExtension, buildFullPath, readFile } from '../src/helpers.js';
 import genDiff from '../src/index.js';
 
 describe('check extension', () => {
-  test.each([
+  const checklist = [
     ['file1.json', 'json'],
     ['../../..json', 'json'],
     ['.json', ''],
-  ])('"%s" => "%s"', (filePath, result) => {
+  ];
+  test.each(checklist)('"%s" => "%s"', (filePath, result) => {
     expect(getPathExtension(filePath)).toBe(result);
   });
 });
 
 describe('check build full path', () => {
   const absPath = path.resolve(process.cwd(), '__fixtures__', 'file1.json');
-  test.each([[absPath], ['file1.json'], ['./file1.json'], ['__fixtures__/file1.json'], ['./__fixtures__/file1.json']])(
-    '"%s"',
-    (filePath) => {
-      expect(buildFullPath(filePath)).toBe(absPath);
-    },
-  );
+  const checklist = [
+    [absPath],
+    ['file1.json'],
+    ['./file1.json'],
+    ['__fixtures__/file1.json'],
+    ['./__fixtures__/file1.json'],
+  ];
+  test.each(checklist)('"%s"', (filePath) => {
+    expect(buildFullPath(filePath)).toBe(absPath);
+  });
 });
 
 describe('check gendiff', () => {
