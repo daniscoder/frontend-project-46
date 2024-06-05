@@ -1,7 +1,11 @@
 import _ from 'lodash';
 import { states } from './helpers.js';
 
-const getNode = (state, key, value) => ({ state, key, value });
+const getNode = (state, key, children = null, value = null, value1 = null, value2 = null) => {
+  const result = { state, key };
+
+  return result;
+});
 
 const buildAST = (obj1, obj2) => {
   const sortedKeys = _.sortBy(_.union(Object.keys(obj1), Object.keys(obj2)));
