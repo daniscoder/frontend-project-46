@@ -34,6 +34,7 @@ describe('check gendiff', () => {
   const formaterResults = [
     ['stylish', readFile('resultStylish.txt').trim()],
     ['plain', readFile('resultPlain.txt').trim()],
+    ['json', readFile('resultJson.txt').trim()],
   ];
   const formats = [['json'], ['yaml'], ['yml']];
   describe.each(formaterResults)('formater %s', (formaterName, result) => {

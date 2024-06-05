@@ -20,7 +20,7 @@ const stringify = (data, depth) => {
   return data;
 };
 
-const stylish = (tree) => {
+export default (tree) => {
   const iter = (node, depth) => {
     const result = node.map(({ state, key, value }) => {
       if (state === states.nested) {
@@ -37,5 +37,3 @@ const stylish = (tree) => {
   };
   return iter(tree, 0);
 };
-
-export default stylish;

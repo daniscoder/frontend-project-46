@@ -10,7 +10,7 @@ const formatedValue = (value) => {
   return value;
 };
 
-const plain = (tree) => {
+export default (tree) => {
   const iter = (node, path) => {
     const result = node
       .filter((obj) => obj.state !== states.unchanged)
@@ -31,5 +31,3 @@ const plain = (tree) => {
   };
   return iter(tree, []);
 };
-
-export default plain;
