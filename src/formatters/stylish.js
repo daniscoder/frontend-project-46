@@ -17,7 +17,7 @@ const stringify = (data, depth) => {
       .flatMap(([key, value]) => `${getKeyIndent(depth, key)}${stringify(value, depth + 1)}`);
     return join(result, depth);
   }
-  return `${data}`;
+  return data;
 };
 
 const stylish = (tree) => {

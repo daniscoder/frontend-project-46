@@ -6,9 +6,9 @@ import genDiff from '../src/index.js';
 
 describe('check extension', () => {
   test.each([
-    ['.json', ''],
-    ['../../..json', 'json'],
     ['file1.json', 'json'],
+    ['../../..json', 'json'],
+    ['.json', ''],
   ])('"%s" => "%s"', (filePath, result) => {
     expect(getPathExtension(filePath)).toBe(result);
   });
@@ -31,7 +31,10 @@ describe('check gendiff', () => {
     expect(() => genDiff('file1.json', 'file2.json', 'test')).toThrow(Error);
   });
 
-  const formaterResults = [['stylish', readFile('resultStylish.txt').trim()]];
+  const formaterResults = [
+    ['stylish', readFile('resultStylish.txt').trim()],
+    ['plain', readFile('resultPlain.txt').trim()],
+  ];
   const formats = [['json'], ['yaml'], ['yml']];
   describe.each(formaterResults)('formater %s', (formaterName, result) => {
     test.each(formats)('format %s', (format) => {

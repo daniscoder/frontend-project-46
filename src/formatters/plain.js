@@ -7,7 +7,7 @@ const formatedValue = (value) => {
   if (value instanceof Object) {
     return '[complex value]';
   }
-  return `${value}`;
+  return value;
 };
 
 const plain = (tree) => {
