@@ -40,6 +40,7 @@ describe('check gendiff', () => {
   });
 
   const formaterResults = [
+    [undefined, readFile('resultStylish.txt').trim()],
     ['stylish', readFile('resultStylish.txt').trim()],
     ['plain', readFile('resultPlain.txt').trim()],
     ['json', readFile('resultJson.txt').trim()],
