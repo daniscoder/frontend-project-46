@@ -2,7 +2,7 @@
   {
     "state": "nested",
     "key": "common",
-    "value": [
+    "children": [
       {
         "state": "added",
         "key": "follow",
@@ -41,11 +41,11 @@
       {
         "state": "nested",
         "key": "setting6",
-        "value": [
+        "children": [
           {
             "state": "nested",
             "key": "doge",
-            "value": [
+            "children": [
               {
                 "state": "updated",
                 "key": "wow",
@@ -73,7 +73,7 @@
   {
     "state": "nested",
     "key": "group1",
-    "value": [
+    "children": [
       {
         "state": "updated",
         "key": "baz",

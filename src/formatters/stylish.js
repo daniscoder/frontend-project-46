@@ -26,9 +26,11 @@ const stringify = (data, depth) => {
 
 export default (tree) => {
   const iter = (node, depth) => {
-    const result = node.map(({ state, key, value }) => {
+    const result = node.map(({
+      state, key, children, value,
+    }) => {
       if (state === states.nested) {
-        return `${getKeyIndent(depth, key)}${iter(value, depth + 1)}`;
+        return `${getKeyIndent(depth, key)}${iter(children, depth + 1)}`;
       }
       if (state === states.updated) {
         return value
