@@ -2,6 +2,7 @@
 [![Node CI](https://github.com/daniscoder/frontend-project-46/actions/workflows/node-check.yml/badge.svg)](https://github.com/daniscoder/frontend-project-46/actions/workflows/node-check.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/411f54f05a3db25a271b/maintainability)](https://codeclimate.com/github/daniscoder/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/411f54f05a3db25a271b/test_coverage)](https://codeclimate.com/github/daniscoder/frontend-project-46/test_coverage)
+![GitHub top language](https://img.shields.io/github/languages/top/daniscoder/frontend-project-46)
 
 <h1>Вычислитель отличий </h1>
 <h3> Утилита позволяет сравнить два конфигурационных файла (с расширением json, yaml или yml) и вывести полученный результат в необходимом формате. </h3>
