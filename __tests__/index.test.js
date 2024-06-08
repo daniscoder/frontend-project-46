@@ -32,16 +32,17 @@ describe('check build full path', () => {
 describe('check gendiff', () => {
   const checklist = [
     ['test', 'file2.json', 'stylish'],
-    ['resultStylish.txt', 'file2.json', 'stylish'],
+    ['resultStylish.txt', 'file2.json', undefined],
     ['file1.json', 'file2.json', 'test'],
   ];
   test.each(checklist)('exception checking: %s %s -f %s', (filePath1, filePath2, formaterName) => {
     expect(() => genDiff(filePath1, filePath2, formaterName)).toThrow();
   });
 
+  const resultStylish = readFile('resultStylish.txt').trim();
   const formaterResults = [
-    [undefined, readFile('resultStylish.txt').trim()],
-    ['stylish', readFile('resultStylish.txt').trim()],
+    [undefined, resultStylish],
+    ['stylish', resultStylish],
     ['plain', readFile('resultPlain.txt').trim()],
     ['json', readFile('resultJson.txt').trim()],
   ];
